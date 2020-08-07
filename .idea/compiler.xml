@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="dao" />
+        <module name="shiro" />
+        <module name="common" />
+        <module name="util" />
+        <module name="web" />
+        <module name="service" />
+        <module name="po" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common" target="1.8" />
+      <module name="dao" target="1.8" />
+      <module name="hotelPlus" target="1.8" />
+      <module name="po" target="1.8" />
+      <module name="service" target="1.8" />
+      <module name="shiro" target="1.8" />
+      <module name="util" target="1.8" />
+      <module name="web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="common" options="-verbose -bootclasspath H:/Jdk/Java/jdk1.8.0_131/jre\lib\rt.jar;H:/Jdk/Java/jdk1.8.0_131/jre\lib\jce.jar" />
+      <module name="dao" options="-verbose -bootclasspath H:/Jdk/Java/jdk1.8.0_131/jre\lib\rt.jar;H:/Jdk/Java/jdk1.8.0_131/jre\lib\jce.jar" />
+      <module name="po" options="-verbose -bootclasspath H:/Jdk/Java/jdk1.8.0_131/jre\lib\rt.jar;H:/Jdk/Java/jdk1.8.0_131/jre\lib\jce.jar" />
+      <module name="service" options="-verbose -bootclasspath H:/Jdk/Java/jdk1.8.0_131/jre\lib\rt.jar;H:/Jdk/Java/jdk1.8.0_131/jre\lib\jce.jar" />
+      <module name="shiro" options="-verbose -bootclasspath H:/Jdk/Java/jdk1.8.0_131/jre\lib\rt.jar;H:/Jdk/Java/jdk1.8.0_131/jre\lib\jce.jar" />
+      <module name="util" options="-verbose -bootclasspath H:/Jdk/Java/jdk1.8.0_131/jre\lib\rt.jar;H:/Jdk/Java/jdk1.8.0_131/jre\lib\jce.jar" />
+      <module name="web" options="-verbose -bootclasspath H:/Jdk/Java/jdk1.8.0_131/jre\lib\rt.jar;H:/Jdk/Java/jdk1.8.0_131/jre\lib\jce.jar" />
+    </option>
+  </component>
+</project>

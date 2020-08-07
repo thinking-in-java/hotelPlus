@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			    http://www.springframework.org/schema/beans/spring-beans.xsd
+			    http://www.springframework.org/schema/context
+			    http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--导入db配置文件-->
+    <context:property-placeholder location="classpath:db-info/dbConfig.properties"/>
+    <!--数据源-->
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${db.driver}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+
+
+        <!-- 配置 初始化大小 最小 最大 -->
+        <property name="initialSize" value="5"/>
+        <property name="minIdle" value="10"/>
+        <property name="maxActive" value="100"/>
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="60000"/>
+
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接, 单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+
+        <!-- 配置一个连接在池中最小生存的时间, 单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="1800"/>
+        <property name="logAbandoned" value="true"/>
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="mergeStat,wall,log4j2"/>
+    </bean>
+
+    <!--MP全局策略配置-->
+    <bean id="globalConfiguration" class="com.baomidou.mybatisplus.core.config.GlobalConfig">
+        <property name="dbConfig">
+            <bean class="com.baomidou.mybatisplus.core.config.GlobalConfig$DbConfig">
+                <property name="idType" value="AUTO"/>
+            </bean>
+        </property>
+    </bean>
+<!--<bean id="keyGenerator" class="com.baomidou.mybatisplus.incrementer.OracleKeyGenerator"/>-->
+    <!--配置工厂类-->
+    <bean id="sessionFactoryBean" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+        <!--注入数据源-->
+        <property name="dataSource" ref="druidDataSource"/>
+		<property name="globalConfig" ref="globalConfiguration"/>
+        <!--配置别名-->
+        <property name="typeAliasesPackage" value="work.chinadream.entity"/>
+        <!--mybatis配置文件-->
+        <property name="configLocation" value="classpath:mybatis-conf/mybatis-conf.xml"/>
+        <!-- 扫描sql配置文件:mapper需要的xml文件 -->
+        <!-- 自动扫描映射文件目录-->
+        <property name="mapperLocations">
+            <array>
+                <value>classpath*:/mapper/work/chinadream/dao/*/*.xml</value>
+                <value>classpath*:/mapper/work/chinadream/dao/*.xml</value>
+            </array>
+        </property>
+
+
+        <property name="plugins">
+            <array>
+                <!-- 分页插件配置 -->
+                <!--PaginationInterceptor 拦截器-->
+                <bean class="com.github.pagehelper.PageInterceptor"/>
+                    <!--自定义时间插件,自动注入时间-->
+               <!-- <bean class="work.chinadream.util.DataSqlInterceptor"/>-->
+            </array>
+        </property>
+    </bean>
+
+
+
+    <!--配置要扫描的包-->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="work.chinadream.dao"/>
+    </bean>
+</beans>

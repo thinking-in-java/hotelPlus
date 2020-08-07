@@ -1,0 +1,14 @@
+work\chinadream\dao\admin\FloorMapper.class
+work\chinadream\dao\admin\RoomTypeMapper.class
+work\chinadream\dao\admin\RoomMapper.class
+work\chinadream\dao\admin\AccountMapper.class
+work\chinadream\dao\admin\RoleResourceMapper.class
+work\chinadream\dao\admin\UserRoleMapper.class
+work\chinadream\dao\admin\LogMapper.class
+work\chinadream\dao\admin\CheckinMapper.class
+work\chinadream\dao\admin\ResourceMapper.class
+work\chinadream\dao\admin\UserMapper.class
+work\chinadream\dao\QqMapper.class
+work\chinadream\dao\admin\OrganizationMapper.class
+work\chinadream\dao\admin\BookOrderMapper.class
+work\chinadream\dao\admin\RoleMapper.class

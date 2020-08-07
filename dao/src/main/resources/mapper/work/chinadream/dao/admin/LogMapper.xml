@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="work.chinadream.dao.admin.LogMapper" >
+  <resultMap id="BaseResultMap" type="work.chinadream.entity.admin.Log" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="operation_name" property="operationName" jdbcType="VARCHAR" />
+    <result column="operation_class" property="operationClass" jdbcType="VARCHAR" />
+    <result column="operation_address" property="operationAddress" jdbcType="VARCHAR" />
+    <result column="params" property="params" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id, login_name, operation_name,operation_class, operation_address, params, ip, create_time
+  </sql>
+
+ <select id="findDataGrid" resultMap="BaseResultMap" parameterType="work.chinadream.util.PageInfo">
+  select
+  <include refid="Base_Column_List" />
+  from syslog
+  <where>
+   <if test=" condition.operationName != null and condition.operationName != '' ">
+    operation_name like '%${condition.operationName}%'
+   </if>
+   <if test="condition.startTime != null">
+    <![CDATA[
+            and create_time >= #{condition.startTime}
+         ]]>
+   </if>
+   <if test="condition.endTime != null">
+    <![CDATA[
+            and create_time <= #{condition.endTime}
+        ]]>
+   </if>
+  </where>
+  order by create_time desc
+  limit #{from}, #{size}
+ </select>
+ <select id="findDataGridCount" resultType="java.lang.Integer" parameterType="work.chinadream.util.PageInfo">
+  select count(*) count
+  from syslog
+  <where>
+   <if test=" condition.operationName != null and condition.operationName != '' ">
+    operation_name like '%${condition.operationName}%'
+   </if>
+   <if test="condition.startTime != null">
+    <![CDATA[
+            and create_time >= #{condition.startTime}
+         ]]>
+   </if>
+   <if test="condition.endTime != null">
+    <![CDATA[
+            and create_time <= #{condition.endTime}
+        ]]>
+   </if>
+  </where>
+ </select>
+
+ <select id="delLogCount" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(*) count
+    from syslog
+    where <![CDATA[ create_time <= #{createTime} ]]>
+ </select>
+ <delete id="delByDate" parameterType="java.lang.String">
+    delete from syslog
+    where <![CDATA[ create_time <= #{createTime} ]]>
+ </delete>
+</mapper>
